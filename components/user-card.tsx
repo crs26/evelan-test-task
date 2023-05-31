@@ -1,4 +1,5 @@
 import { User } from '@/interfaces/users'
+import Image from 'next/image'
 
 /**
  *
@@ -10,7 +11,9 @@ export default function UserCard({ user }: { user: User }) {
     <div className="bg-white shadow-lg rounded-lg p-4">
       <div className="flex flex-col items-center">
         <div className="w-16 h-16 rounded-full overflow-hidden">
-          <img
+          <Image
+            width={64}
+            height={64}
             src={user.avatar}
             alt="Avatar"
             className="w-full h-full object-cover"
