@@ -1,5 +1,10 @@
 import { User } from '@/interfaces/users'
 
+/**
+ *
+ * @param param0 User object to display
+ * @returns Returns a user card
+ */
 export default function UserCard({ user }: { user: User }) {
   return (
     <div className="bg-white shadow-lg rounded-lg p-4">

@@ -1,3 +1,6 @@
+/***
+ * @fileoverview Interface for users
+ */
 export interface User {
     id: number
     email: string

@@ -4,6 +4,9 @@ import UserCard from '@/components/user-card'
 import { User } from '@/interfaces/users'
 import { useEffect, useState } from 'react'
 
+/***
+ * Api data interface
+ */
 interface ApiData {
   page: number
   per_page: number
@@ -12,6 +15,9 @@ interface ApiData {
   data: User[]
 }
 
+/**
+ * @returns Returns a list of users
+ */
 export default function UsersPage() {
   const [apiData, setApiData] = useState<ApiData>({} as ApiData)
   const [users, setUsers] = useState<User[]>([])
@@ -22,6 +28,9 @@ export default function UsersPage() {
     })
   }, [])
 
+  /***
+   * Fetches users from the api
+   */
   async function fetchUsers(pageIndex: number = 1) {
     const response = await fetch(
       `https://reqres.in/api/users?page=${pageIndex}`,
@@ -29,6 +38,9 @@ export default function UsersPage() {
     return response.json()
   }
 
+  /**
+   * Loads more users
+   */
   function loadMore() {
     fetchUsers(apiData.page + 1).then((data) => {
       setUsers([...users, ...data.data] as User[])
