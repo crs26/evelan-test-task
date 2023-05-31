@@ -50,7 +50,7 @@ export default function UsersPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-white">
-      <div className="grid grid-cols-3 gap-8 m-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 m-8">
         {users.map((user: User) => {
           return <UserCard key={user.id} user={user} />
         })}
