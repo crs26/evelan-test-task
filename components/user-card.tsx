@@ -14,6 +14,7 @@ export default function UserCard({ user }: { user: User }) {
             src={user.avatar}
             alt="Avatar"
             className="w-full h-full object-cover"
+            rel="preload"
           />
         </div>
         <div className="">
