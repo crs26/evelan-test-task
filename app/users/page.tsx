@@ -4,12 +4,22 @@ import UserCard from '@/components/user-card'
 import { User } from '@/interfaces/users'
 import { useEffect, useState } from 'react'
 
+interface ApiData {
+  page: number
+  per_page: number
+  total: number
+  total_pages: number
+  data: User[]
+}
+
 export default function UsersPage() {
-  const [apiData, setApiData] = useState({})
+  const [apiData, setApiData] = useState<ApiData>({} as ApiData)
   const [users, setUsers] = useState<User[]>([])
-  const [currentApiPage, setCurrentApiPage] = useState(1)
   useEffect(() => {
-    fetchUsers(currentApiPage).then((data) => setUsers(data.data))
+    fetchUsers().then((data) => {
+      setUsers(data.data)
+      setApiData(data)
+    })
   }, [])
 
   async function fetchUsers(pageIndex: number = 1) {
@@ -20,9 +30,9 @@ export default function UsersPage() {
   }
 
   function loadMore() {
-    fetchUsers(currentApiPage + 1).then((data) => {
+    fetchUsers(apiData.page + 1).then((data) => {
       setUsers([...users, ...data.data] as User[])
-      setCurrentApiPage(currentApiPage + 1)
+      setApiData(data)
     })
   }
 
@@ -33,7 +43,13 @@ export default function UsersPage() {
           return <UserCard key={user.id} user={user} />
         })}
       </div>
-      <button className="bg-green-600 rounded-lg p-2" onClick={loadMore}>
+      <button
+        className={`bg-teal-700 ${
+          apiData.total_pages === apiData.page ? 'bg-opacity-40' : ''
+        } rounded-lg p-2`}
+        onClick={loadMore}
+        disabled={apiData.total_pages === apiData.page}
+      >
         Load more
       </button>
     </div>
